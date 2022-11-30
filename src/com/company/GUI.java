@@ -24,7 +24,7 @@ public class GUI implements ActionListener {
     public void show() {
         JFrame guiFrame = new JFrame("Sprite Editor");
         guiFrame.setSize(248, 312);
-
+//red
         red.setBounds(0, 0, 200, 25);
         green.setBounds(0, 25, 200, 25);
         black.setBounds(0, 50, 200, 25);
