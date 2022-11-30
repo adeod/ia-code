@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Sheet extends JPanel {
+public class Sheet extends JPanel implements ActionListener {
     //width for sheet
     int width;
     Pixel pixelSheet[][];
@@ -25,14 +25,17 @@ public class Sheet extends JPanel {
         //make frame visible by setting to true
         f.setVisible(true);
 
-
+        int k = 0 ;
         for(int i=0; i < pixelSheet.length; i++){
             for(int j=0; j< pixelSheet.length; j++){
-                pixelSheet[i][j] = pBtn;
+//TODO: set text to invisible
                 Pixel pBtn = new Pixel(0,0,0);
                 pBtn.setBounds(i*width , j*width, width, width);
-                //  pBtn.addActionListener(this::actionPerformed);
+                pBtn.addActionListener(this::actionPerformed);
+                pBtn.setText(Integer.toString(k));
+                pixelSheet[i][j] = pBtn;
                 f.add(pBtn);
+                k++;
             }
         }
 
@@ -80,5 +83,16 @@ public class Sheet extends JPanel {
             System.out.println();
         }
     }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+       // (JButton)(e.getSource()).setBackground(Color.BLACK);
+        int btnNum = Integer.parseInt(e.getActionCommand());
+        int col = btnNum % 16;
+        int row = btnNum/ 16;
+        System.out.print(col + ", " + row);
+
+        pixelSheet[row][col].setBackground(Color.BLACK);
+    }
+
 
 }

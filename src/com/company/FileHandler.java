@@ -53,25 +53,6 @@ public class FileHandler {
         }
     }
 
-
-    public static void sortFile(ArrayList<String> listOfStrings) {
-        //sort the listofstrings
-        System.out.println();
-        System.out.println("Sorting...");
-
-        //ArrayList<String> listOfStrings = new ArrayList<>();
-        for (int i = 0; i < listOfStrings.size(); i++) {
-            String current = listOfStrings.get(i);
-            int index = i;
-            while (index > 0 && current.compareTo(listOfStrings.get(index - 1)) < 0) {
-                listOfStrings.set(index, current);
-                index = index - 1;
-                // holding the variable to replace it
-            }
-            listOfStrings.set(index, current);
-            System.out.println(listOfStrings);
-        }
-    }
     //TODO: take sheet and save as png or save coordinates so it can be altercated
 
     public void saveCoordinates(Sheet someSheet, String fileName) {
@@ -116,6 +97,7 @@ public class FileHandler {
                 RandomAccessFile rf = new RandomAccessFile(filename, "rws")
                 ) {
             rf.seek(0) ;
-         }
+         } catch(IOException e) {
+         e.printStackTrace();
         }*/
 }   

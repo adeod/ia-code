@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 // used to implement colour in the sheet class
 
-    public class Pixel extends JToggleButton implements ActionListener {
+    public class Pixel extends JButton {
 
 
         // shows red, green and blue values in order to make
@@ -27,20 +27,22 @@ import java.awt.event.ActionListener;
         }
 
         public void black(Pixel colPixel) {
-            r= 0;
-            g=0;
-            b=0;
-            Color black = new Color(r,g,b);
+            r = 0;
+            g = 0;
+            b = 0;
+            Color black = new Color(r, g, b);
             colPixel.setContentAreaFilled(true);
         }
 
-        public int getRValue(){
+        public int getRValue() {
             return r;
         }
-        public int getGValue(){
+
+        public int getGValue() {
             return g;
         }
-        public int getBValue(){
+
+        public int getBValue() {
             return b;
         }
 
@@ -71,12 +73,4 @@ import java.awt.event.ActionListener;
             return x;
         }
  */
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-        }
-
-        public void addActionListener(Pixel pixObj){
-            pixObj.addActionListener(this::actionPerformed);
-        }
     }
