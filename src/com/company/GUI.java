@@ -7,20 +7,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-public class GUI implements ActionListener {
+public class GUI  {
 
-    JButton red = new JButton("red");
-    JButton green = new JButton("green");
-    JButton black = new JButton("black");
-    JButton clear = new JButton("clear");
-    JButton saveAsPng = new JButton("Save as png");
-    Sheet spriteSheet = new Sheet(31);
+    JButton red;
+    JButton green;
+    JButton black;
+    JButton clear;
+    JButton saveAsPng;
+    Sheet spriteSheet;
 
     JFrame jf = new JFrame();
     JButton thisButton = new JButton("check ur files");
     File f = new File("C:\\Users\\pc\\Documents\\Sprite Editor");
     JFileChooser jChoose = new JFileChooser("d:", FileSystemView.getFileSystemView());
 
+    public GUI(){
+         red = new JButton("red");
+         green = new JButton("green");
+         black = new JButton("black");
+         clear = new JButton("clear");
+         saveAsPng = new JButton("Save as png");
+    }
     public void show() {
         JFrame guiFrame = new JFrame("Sprite Editor");
         guiFrame.setSize(248, 312);
@@ -42,11 +49,6 @@ public class GUI implements ActionListener {
         guiFrame.add(thisButton);
         //content.add(controls, BorderLayout.SOUTH);
 
-        red.addActionListener(this);
-        green.addActionListener(this);
-        black.addActionListener(this);
-        saveAsPng.addActionListener(this);
-
 
         guiFrame.setLayout(null);
         guiFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -54,14 +56,5 @@ public class GUI implements ActionListener {
 
     }
 
-    public void actionPerformed(ActionEvent e){
-        //change button background color
-        red.setBackground(Color.RED);
-        //change button text color
-        red.setForeground(Color.RED);
-        if(e.getSource() == thisButton){
-            jChoose.showSaveDialog(null);
-        }
-    }
 
 }

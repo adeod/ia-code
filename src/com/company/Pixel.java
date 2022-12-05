@@ -13,25 +13,18 @@ import java.awt.event.ActionListener;
         int r;
         int g;
         int b;
-        Point p = MouseInfo.getPointerInfo().getLocation();
-        int x = p.x;
-        int y = p.y;
-        int rectWidth = 20;
 
         public Pixel(int r, int g, int b) {
             super();
             this.r = r;
             this.g = g;
             this.b = b;
-
         }
 
         public void black(Pixel colPixel) {
             r = 0;
             g = 0;
             b = 0;
-            Color black = new Color(r, g, b);
-            colPixel.setContentAreaFilled(true);
         }
 
         public int getRValue() {

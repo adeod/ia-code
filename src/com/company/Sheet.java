@@ -4,23 +4,27 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.Random;
 
 public class Sheet extends JPanel implements ActionListener {
     //width for sheet
     int width;
     Pixel pixelSheet[][];
-    // is an array of pixel objects where the user can
-    // change
-    Pixel pBtn;
+    String pixelFile;
+    JButton red, green, blue, save,black;
+    JButton history;
+
     public Sheet(int width){
         super();
         this.width = width;
         //sheet constructor is initialised as a 2d array with width and length that can be altered
         pixelSheet = new Pixel[16][16];
         //creating JFrame
-        JFrame f = new JFrame("New Sprite Sheet");
+        JFrame f = new JFrame( "Sprite Sheet");
         //add sheet object to GUI
-        f.setSize(width*pixelSheet.length, width*(pixelSheet.length+1));
+        f.setSize(578, 578);
         f.setLayout(null);
         //make frame visible by setting to true
         f.setVisible(true);
@@ -28,7 +32,6 @@ public class Sheet extends JPanel implements ActionListener {
         int k = 0 ;
         for(int i=0; i < pixelSheet.length; i++){
             for(int j=0; j< pixelSheet.length; j++){
-//TODO: set text to invisible
                 Pixel pBtn = new Pixel(0,0,0);
                 pBtn.setBounds(i*width , j*width, width, width);
                 pBtn.addActionListener(this::actionPerformed);
@@ -39,60 +42,57 @@ public class Sheet extends JPanel implements ActionListener {
             }
         }
 
+        red.setBounds(527,0,50,50);
+        red.addActionListener(this::actionPerformed);
+        red.setBackground(Color.red);
+        green.setBounds(527,50,50,50);
+        green.setBackground(Color.green);
+        green.addActionListener(this::actionPerformed);
+        blue.setBounds(527,100,50,50);
+        blue.setBackground(Color.BLUE);
+        blue.addActionListener(this::actionPerformed);
+        black.setBounds(527,150,50,50);
+        black.setBackground(Color.BLACK);
+        black.addActionListener(this::actionPerformed);
+        save.setBounds(527,200,50,50);
+        save.addActionListener(this::actionPerformed);
+        f.add(red);
+        f.add(green);
+        f.add(blue);
+        f.add(black);
+        f.add(save);
     }
 
 
 
-    public void clear(){
-        for(int i=0; i < width; i++){
-            for(int j=0; j < width; j++){
-                pixelSheet[i][j].r = 0;
-                pixelSheet[i][j].g = 0;
-                pixelSheet[i][j].b = 0;
-            }
-        }
-    }
 
-    public void red(int x, int y){
-        pixelSheet[x][y].r =255;
-        pixelSheet[x][y].g =0;
-        pixelSheet[x][y].b =0;
-
-    }
-    public void blue(int x, int y){
-        Pixel blueCol = new Pixel(0,0,255);
-        pixelSheet[x][y] = blueCol;
-    }
-
-    public void white(int x, int y){
-        Pixel whiteCol = new Pixel(255,255,255);
-        pixelSheet[x][y] = whiteCol;
-    }
-    public void black(int x, int y){
-        Pixel blackCol = new Pixel(0,0,0);
-        pixelSheet[x][y] = blackCol;
-    }
-
-
-    // displays the sheet object as initialised
-    public void displaySheet(Sheet newSheet){
-        for(int i = 0; i < width; i++){
-            for(int j = 0; j < width; j++){
-                System.out.print(pixelSheet[i][j]);
-            }
-            System.out.println();
-        }
-    }
     @Override
     public void actionPerformed(ActionEvent e) {
-       // (JButton)(e.getSource()).setBackground(Color.BLACK);
         int btnNum = Integer.parseInt(e.getActionCommand());
         int col = btnNum % 16;
         int row = btnNum/ 16;
-        System.out.print(col + ", " + row);
+        System.out.println(col + ", " + row);
+        if(e.getSource() == black){
+            pixelSheet[row][col].setBackground(Color.BLACK);
+        } else if(e.getSource() == green){
+            pixelSheet[row][col].setBackground(Color.GREEN);
+        }else if(e.getSource() == blue){
+            pixelSheet[row][col].setBackground(Color.BLUE);
+        }else if(e.getSource() == red){
+            pixelSheet[row][col].setBackground(Color.RED);
+        }
 
-        pixelSheet[row][col].setBackground(Color.BLACK);
+        try(
+                RandomAccessFile rf = new RandomAccessFile(pixelFile, "rws")
+                ){
+            rf.writeBytes(col + "," + row);
+            rf.write(pixelSheet[row][col].getRValue());
+        } catch (IOException v){
+            v.printStackTrace();
+        }
     }
+
+
 
 
 }
