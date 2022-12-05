@@ -32,7 +32,7 @@ public class Sheet extends JPanel implements ActionListener {
         int k = 0 ;
         for(int i=0; i < pixelSheet.length; i++){
             for(int j=0; j< pixelSheet.length; j++){
-                Pixel pBtn = new Pixel(0,0,0);
+                Pixel pBtn = new Pixel('n');
                 pBtn.setBounds(i*width , j*width, width, width);
                 pBtn.addActionListener(this::actionPerformed);
                 pBtn.setText(Integer.toString(k));
@@ -72,8 +72,8 @@ public class Sheet extends JPanel implements ActionListener {
         int col = btnNum % 16;
         int row = btnNum/ 16;
         System.out.println(col + ", " + row);
-        if(e.getSource() == black){
-            pixelSheet[row][col].setBackground(Color.BLACK);
+        pixelSheet[row][col].setBackground(Color.BLACK);
+        /* if(e.getSource() == black){
         } else if(e.getSource() == green){
             pixelSheet[row][col].setBackground(Color.GREEN);
         }else if(e.getSource() == blue){
@@ -81,12 +81,12 @@ public class Sheet extends JPanel implements ActionListener {
         }else if(e.getSource() == red){
             pixelSheet[row][col].setBackground(Color.RED);
         }
-
-        try(
+*/
+         try(
                 RandomAccessFile rf = new RandomAccessFile(pixelFile, "rws")
                 ){
             rf.writeBytes(col + "," + row);
-            rf.write(pixelSheet[row][col].getRValue());
+            rf.write(pixelSheet[row][col].getColVal(pixelSheet[row][col]));
         } catch (IOException v){
             v.printStackTrace();
         }

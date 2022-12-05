@@ -7,36 +7,16 @@ import java.awt.event.ActionListener;
 // used to implement colour in the sheet class
 
     public class Pixel extends JButton {
+        char col;
 
 
-        // shows red, green and blue values in order to make
-        int r;
-        int g;
-        int b;
-
-        public Pixel(int r, int g, int b) {
+        public Pixel(char col) {
             super();
-            this.r = r;
-            this.g = g;
-            this.b = b;
+            this.col = 'n'; //initialised as null when no colour is assigned
         }
 
-        public void black(Pixel colPixel) {
-            r = 0;
-            g = 0;
-            b = 0;
-        }
-
-        public int getRValue() {
-            return r;
-        }
-
-        public int getGValue() {
-            return g;
-        }
-
-        public int getBValue() {
-            return b;
+        public char getColVal(Pixel thisP){
+            return thisP.col;
         }
 
        /* public int getX(){

@@ -54,7 +54,7 @@ public class FileHandler {
     }
 
     //TODO: take sheet and save as png or save coordinates so it can be altercated
-
+/*
     public void saveCoordinates(Sheet someSheet, String fileName) {
         try (
                 RandomAccessFile rs = new RandomAccessFile(fileName, "rws");
@@ -77,7 +77,7 @@ public class FileHandler {
             JTextField suggestText = new JTextField("Would you like to make a new sprite sheet?");
 
         }
-    }
+    } */
 
     public void saveAsPng(String fileName) {
         try {
@@ -92,12 +92,13 @@ public class FileHandler {
         }
     }
 
-      /* public void openSheetCoordinates(String filename){
-        try(
+    public void openSheetCoordinates(String filename) {
+        try (
                 RandomAccessFile rf = new RandomAccessFile(filename, "rws")
-                ) {
-            rf.seek(0) ;
-         } catch(IOException e) {
-         e.printStackTrace();
-        }*/
-}   
+        ) {
+            rf.seek(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

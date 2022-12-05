@@ -11,7 +11,8 @@ public class LaunchPage implements ActionListener {
     JButton startButton1 = new JButton("Open New...");
     JButton startButton2 = new JButton("Open Existing Sprite Sheet");
     JFileChooser fileChooser = new JFileChooser();
-    GUI myGUI = new GUI();
+    Sheet mySheet;
+    FileHandler fH = new FileHandler();
 
     public LaunchPage() {
         startButton1.setBounds(100, 160, 200, 40);
@@ -34,7 +35,8 @@ public class LaunchPage implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource()== startButton1) {
             startFrame.dispose();
-            Sheet mySheet = new Sheet(31);
+            mySheet = new Sheet(31);
+            System.out.print(mySheet);
         } else if (e.getSource() == startButton2) {
             fileChooser.showOpenDialog(null);
             //openSheetCoordinates();
