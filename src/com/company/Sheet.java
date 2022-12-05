@@ -16,7 +16,7 @@ public class Sheet extends JPanel implements ActionListener {
     String pixelFile;
     FileHandler fH = new FileHandler();
     JButton history;
-    Color colors[] = new Color[4];
+    Color colors[] = {Color.BLACK, Color.blue, Color.red, Color.green };
 
     public Sheet(int width){
         super();
@@ -30,10 +30,6 @@ public class Sheet extends JPanel implements ActionListener {
        f.setLayout(null);
         //make frame visible by setting to true
         f.setVisible(true);
-        for(int i =0;i< colors.length;i++){
-            colors[i] = Color.BLACK;
-
-        }
         int k = 0 ;
         for(int i=0; i < pixelSheet.length; i++){
             for(int j=0; j< pixelSheet.length; j++){
