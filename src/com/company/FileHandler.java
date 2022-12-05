@@ -106,7 +106,7 @@ public class FileHandler {
                 PrintWriter printWriter = new PrintWriter("historySheet.txt", String.valueOf(true));
         ){
             printWriter.write(col + "," + row);
-            printWriter.write(pixelSheet[row][col].getColVal(pixelSheet[row][col]));
+            printWriter.write(pixelSheet[row][col].getColVal());
         } catch (IOException v){
             v.printStackTrace();
         }

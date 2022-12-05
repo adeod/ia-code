@@ -39,7 +39,6 @@ public class LaunchPage implements ActionListener {
         if (e.getSource()== startButton1) {
             startFrame.dispose();
             mySheet = new Sheet(31);
-            System.out.print(mySheet);
         } else if (e.getSource() == startButton2) {
             fileChooser.showOpenDialog(null);
             //openSheetCoordinates();
