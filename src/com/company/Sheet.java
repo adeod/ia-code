@@ -75,12 +75,20 @@ public class Sheet extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        int count =0;
         int btnNum = Integer.parseInt(e.getActionCommand());
         int col = btnNum % 16;
         int row = btnNum/ 16;
         System.out.println(col + ", " + row);
+        if(e.getSource() == pixelSheet[row][col]){
+            pixelSheet[row][col].setBackground(colors[count]);
+            count++;
+            if(count == 3 ){
+                //reset count value to 0
+                count = 0;
+            }
+        }
 
-        pixelSheet[row][col].setBackground(Color.blue);
 
         /* if(e.getSource() == black){
         } else if(e.getSource() == green){
@@ -89,6 +97,8 @@ public class Sheet extends JPanel implements ActionListener {
             pixelSheet[row][col].setBackground(Color.BLUE);
         }else if(e.getSource() == red){
             pixelSheet[row][col].setBackground(Color.RED);
+        } else if (e.getSource() == save){
+        fH.saveAsPng("pixelSheet");
         }
 */
         fH.createHistory(row,col,pixelSheet);
