@@ -41,7 +41,7 @@ public class LaunchPage implements ActionListener {
             mySheet = new Sheet(31);
         } else if (e.getSource() == startButton2) {
             fileChooser.showOpenDialog(null);
-            //openSheetCoordinates();
+            // TODO: openSheetCoordinates();
         }
     }
 }
