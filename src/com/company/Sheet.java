@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.RandomAccessFile;
 import java.util.Random;
 
@@ -13,8 +14,9 @@ public class Sheet extends JPanel implements ActionListener {
     int width;
     Pixel pixelSheet[][];
     String pixelFile;
-    JButton red, green, blue, save,black;
+    FileHandler fH = new FileHandler();
     JButton history;
+    Color colors[] = new Color[4];
 
     public Sheet(int width){
         super();
@@ -25,10 +27,13 @@ public class Sheet extends JPanel implements ActionListener {
         JFrame f = new JFrame( "Sprite Sheet");
         //add sheet object to GUI
         f.setSize(578, 578);
-        f.setLayout(null);
+       f.setLayout(null);
         //make frame visible by setting to true
         f.setVisible(true);
+        for(int i =0;i< colors.length;i++){
+            colors[i] = Color.BLACK;
 
+        }
         int k = 0 ;
         for(int i=0; i < pixelSheet.length; i++){
             for(int j=0; j< pixelSheet.length; j++){
@@ -42,25 +47,31 @@ public class Sheet extends JPanel implements ActionListener {
             }
         }
 
-        red.setBounds(527,0,50,50);
+        /*red.setBounds(527,700,50,50);
         red.addActionListener(this::actionPerformed);
         red.setBackground(Color.red);
+        red.setVisible(true);
         green.setBounds(527,50,50,50);
         green.setBackground(Color.green);
         green.addActionListener(this::actionPerformed);
+        green.setVisible(true);
         blue.setBounds(527,100,50,50);
         blue.setBackground(Color.BLUE);
         blue.addActionListener(this::actionPerformed);
+        blue.setVisible(true);
         black.setBounds(527,150,50,50);
         black.setBackground(Color.BLACK);
         black.addActionListener(this::actionPerformed);
+        black.setVisible(true);
         save.setBounds(527,200,50,50);
         save.addActionListener(this::actionPerformed);
         f.add(red);
         f.add(green);
         f.add(blue);
         f.add(black);
-        f.add(save);
+        f.add(save); */
+
+
     }
 
 
@@ -72,7 +83,9 @@ public class Sheet extends JPanel implements ActionListener {
         int col = btnNum % 16;
         int row = btnNum/ 16;
         System.out.println(col + ", " + row);
-        pixelSheet[row][col].setBackground(Color.BLACK);
+
+        pixelSheet[row][col].setBackground(Color.blue);
+
         /* if(e.getSource() == black){
         } else if(e.getSource() == green){
             pixelSheet[row][col].setBackground(Color.GREEN);
@@ -82,14 +95,7 @@ public class Sheet extends JPanel implements ActionListener {
             pixelSheet[row][col].setBackground(Color.RED);
         }
 */
-         try(
-                RandomAccessFile rf = new RandomAccessFile(pixelFile, "rws")
-                ){
-            rf.writeBytes(col + "," + row);
-            rf.write(pixelSheet[row][col].getColVal(pixelSheet[row][col]));
-        } catch (IOException v){
-            v.printStackTrace();
-        }
+        fH.createHistory(row,col,pixelSheet);
     }
 
 

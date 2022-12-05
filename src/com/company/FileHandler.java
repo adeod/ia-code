@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 public class FileHandler {
 
-    Sheet spriteSheet = new Sheet(31);
 
     //read one character out of file
     public static ArrayList<String> SimpleWholeFileRead() {
@@ -79,12 +78,12 @@ public class FileHandler {
         }
     } */
 
-    public void saveAsPng(String fileName) {
+    public void saveAsPng(String fileName, Pixel spriteSheet[][] ) {
         try {
 
             BufferedImage image = new BufferedImage(31, 31, BufferedImage.TYPE_INT_RGB);
             Graphics2D graphics2D = image.createGraphics();
-            spriteSheet.paint(graphics2D);
+           //spriteSheet.paint(graphics2D);
             ImageIO.write(image, "jpeg", new File("/home/deniz/Desktop/jmemPractice.jpeg"));
 
         } catch (IOException e) {
@@ -99,6 +98,17 @@ public class FileHandler {
             rf.seek(0);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void createHistory(int row, int col, Pixel pixelSheet[][]){
+        try(
+                PrintWriter printWriter = new PrintWriter("historySheet.txt", String.valueOf(true));
+        ){
+            printWriter.write(col + "," + row);
+            printWriter.write(pixelSheet[row][col].getColVal(pixelSheet[row][col]));
+        } catch (IOException v){
+            v.printStackTrace();
         }
     }
 }

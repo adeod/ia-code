@@ -22,7 +22,6 @@ public class GUI  {
     public void show() {
         JFrame guiFrame = new JFrame("Sprite Editor");
         guiFrame.setSize(248, 312);
-//red
 
         thisButton.setBounds(0,125,100,100);
 

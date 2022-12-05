@@ -18,17 +18,20 @@ public class LaunchPage implements ActionListener {
         startButton1.setBounds(100, 160, 200, 40);
         startButton1.setFocusable(false);
         startButton1.addActionListener(this);
+        startButton1.setVisible(true);
         startFrame.add(startButton1);
 
         startButton2.setBounds(100, 240, 200, 40);
         startButton2.setFocusable(false);
         startButton2.addActionListener(this);
-        startFrame.add(startButton2);
+        startButton2.setVisible(true);
 
+        startFrame.add(startButton2);
         startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         startFrame.setSize(420, 420);
         startFrame.setLayout(null);
         startFrame.setVisible(true);
+
     }
 
     @Override
