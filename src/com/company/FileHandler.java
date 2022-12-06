@@ -95,7 +95,10 @@ public class FileHandler {
         try (
                 RandomAccessFile rf = new RandomAccessFile(filename, "rws")
         ) {
-            rf.seek(0);
+
+            for(int i = 0; i < 16; i++){
+                rf.seek(i);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

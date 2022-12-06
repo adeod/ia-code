@@ -14,8 +14,7 @@ public class Sheet extends JPanel implements ActionListener {
     int width;
     Pixel pixelSheet[][];
     String pixelFile;
-    FileHandler fH = new FileHandler();
-    JButton history;
+    JButton save;
     Color colors[] = {Color.WHITE, Color.BLACK, Color.blue, Color.red, Color.green};
     String colorName[]= {"white", "black", "blue", "red", "green"};
     int colorCount;
@@ -31,6 +30,7 @@ public class Sheet extends JPanel implements ActionListener {
         //add sheet object to GUI
         f.setSize(578, 578);
         f.setLayout(null);
+        JButton save = new JButton("save");
 
         //make frame visible by setting to true
         f.setVisible(true);
@@ -49,29 +49,10 @@ public class Sheet extends JPanel implements ActionListener {
             }
         }
 
-        /*red.setBounds(527,700,50,50);
-        red.addActionListener(this::actionPerformed);
-        red.setBackground(Color.red);
-        red.setVisible(true);
-        green.setBounds(527,50,50,50);
-        green.setBackground(Color.green);
-        green.addActionListener(this::actionPerformed);
-        green.setVisible(true);
-        blue.setBounds(527,100,50,50);
-        blue.setBackground(Color.BLUE);
-        blue.addActionListener(this::actionPerformed);
-        blue.setVisible(true);
-        black.setBounds(527,150,50,50);
-        black.setBackground(Color.BLACK);
-        black.addActionListener(this::actionPerformed);
-        black.setVisible(true);
-        save.setBounds(527,200,50,50);
+
+        save.setBounds(527,200,100,100);
         save.addActionListener(this::actionPerformed);
-        f.add(red);
-        f.add(green);
-        f.add(blue);
-        f.add(black);
-        f.add(save); */
+        f.add(save);
 
 
     }
@@ -79,7 +60,7 @@ public class Sheet extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        while(e.getSource() != save){
         int btnNum = Integer.parseInt(e.getActionCommand());
         int col = btnNum % 16;
         int row = btnNum / 16;
@@ -88,12 +69,15 @@ public class Sheet extends JPanel implements ActionListener {
             pixelSheet[row][col].incColVal();
             pixelSheet[row][col].setBackground(colors[pixelSheet[row][col].getColVal()]);
             pixelSheet[row][col].setForeground(colors[pixelSheet[row][col].getColVal()]);
-        } else {
-            System.out.print("not");
+        }  else {
+                System.out.print("not");
+            }
         }
-
-
+        if(e.getSource() == save){
+            saveSheet();
+        }
     }
+
 
     public void saveSheet () {
 
@@ -102,14 +86,16 @@ public class Sheet extends JPanel implements ActionListener {
         ) {
             for( int i =0; i < pixelSheet.length;i++){
                 for(int j =0; j< pixelSheet.length; j++){
-                    rf.writeChars(colorName[pixelSheet[i][j].getColVal()]);
-                    rf.writeChars(" , ");
-                    System.out.print(colorName[pixelSheet[i][j].getColVal()]);
+                    rf.writeBytes(colorName[pixelSheet[i][j].getColVal()]);
+                    rf.writeBytes(" , ");
+                    System.out.print(colorName[pixelSheet[i][j].getColVal()] +" , ");
                 }
             }
 
         } catch (IOException b) {
-            b.printStackTrace();
+            JWindow suggestBox = new JWindow();
+            suggestBox.setBounds(100, 100, 300, 300);
+            JTextField suggestText = new JTextField("Would you like to make a new sprite sheet?");
         }
     }
 }

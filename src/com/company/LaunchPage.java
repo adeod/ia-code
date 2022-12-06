@@ -3,6 +3,7 @@ package com.company;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import javax.swing.JFrame;
 
 public class LaunchPage implements ActionListener {
@@ -40,8 +41,11 @@ public class LaunchPage implements ActionListener {
             startFrame.dispose();
             mySheet = new Sheet(31);
         } else if (e.getSource() == startButton2) {
-            fileChooser.showOpenDialog(null);
-            // TODO: openSheetCoordinates();
+            int result = fileChooser.showOpenDialog(null);
+            if(result == JFileChooser.APPROVE_OPTION){
+                File selFile = fileChooser.getSelectedFile();
+                fH.openSheetCoordinates(String.valueOf(selFile));
+            }
         }
     }
 }
