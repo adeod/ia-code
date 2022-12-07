@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 // used to implement colour in the sheet class
 
-    public class   Pixel extends JButton {
+    public class Pixel extends JButton {
         int colN;
 
 
@@ -16,7 +16,6 @@ import java.awt.event.ActionListener;
         }
 
         public int getColVal(){
-
             return colN;
         }
 

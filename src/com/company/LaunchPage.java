@@ -44,7 +44,7 @@ public class LaunchPage implements ActionListener {
             int result = fileChooser.showOpenDialog(null);
             if(result == JFileChooser.APPROVE_OPTION){
                 File selFile = fileChooser.getSelectedFile();
-                fH.openSheetCoordinates(String.valueOf(selFile));
+                mySheet.openSheetCoordinates(selFile.getName());
             }
         }
     }

@@ -52,57 +52,6 @@ public class FileHandler {
         }
     }
 
-    //TODO: take sheet and save as png or save coordinates so it can be altercated
-/*
-    public void saveCoordinates(Sheet someSheet, String fileName) {
-        try (
-                RandomAccessFile rs = new RandomAccessFile(fileName, "rws");
-        ) {
-            for (int i = 0; i < someSheet.width; i++) {
-                for (int j = 0; j < someSheet.width; j++) {
-                    rs.writeBytes("(");
-                    rs.write(someSheet.pixelSheet[i][j].getRValue());
-                    rs.writeBytes(",");
-                    rs.write(someSheet.pixelSheet[i][j].getGValue());
-                    rs.writeBytes(",");
-                    rs.write(someSheet.pixelSheet[i][j].getBValue());
-                    rs.writeBytes(");");
-                }
-            }
-        } catch (IOException e) {
-            //suggest to make a new pixel sheet
-            JWindow suggestBox = new JWindow();
-            suggestBox.setBounds(100, 100, 300, 300);
-            JTextField suggestText = new JTextField("Would you like to make a new sprite sheet?");
-
-        }
-    } */
-
-    public void saveAsPng(String fileName, Pixel spriteSheet[][] ) {
-        try {
-
-            BufferedImage image = new BufferedImage(31, 31, BufferedImage.TYPE_INT_RGB);
-            Graphics2D graphics2D = image.createGraphics();
-           //spriteSheet.paint(graphics2D);
-            ImageIO.write(image, "jpeg", new File("/home/deniz/Desktop/jmemPractice.jpeg"));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void openSheetCoordinates(String filename) {
-        try (
-                RandomAccessFile rf = new RandomAccessFile(filename, "rws")
-        ) {
-
-            for(int i = 0; i < 16; i++){
-                rf.seek(i);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void createHistory(int row, int col, Pixel pixelSheet[][]){
         try(
