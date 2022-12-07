@@ -37,7 +37,8 @@ public class Sheet extends JPanel implements ActionListener {
         spriteFrame.setLayout(null);
         save = new JButton("save");
         save1 = new JButton("save as PNG");
-        JFileChooser fileChoice = new JFileChooser();
+        spriteFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
         //make frame visible by setting to true
         spriteFrame.setVisible(true);
@@ -116,7 +117,7 @@ public class Sheet extends JPanel implements ActionListener {
     public void saveAsPng(){
         //client wants in a specific area --> develop to other
         try { 
-            BufferedImage spriteImage = new BufferedImage(16*width, 16*width,BufferedImage.TYPE_INT_RGB); 
+            BufferedImage spriteImage = new BufferedImage(16*width, 17*width,BufferedImage.TYPE_INT_RGB);
             Graphics2D g1 = spriteImage.createGraphics();
             spriteFrame.paint(g1);
             ImageIO.write(spriteImage,"png", new File("sprite.png"));
