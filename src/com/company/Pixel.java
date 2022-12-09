@@ -28,4 +28,8 @@ import java.awt.event.ActionListener;
             return colN;
         }
 
+        public void setColN(int setNum){
+            colN = setNum;
+        }
+
     }

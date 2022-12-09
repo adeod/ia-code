@@ -14,14 +14,14 @@ public class Sheet extends JPanel implements ActionListener {
     //width for sheet
     int width;
     Pixel pixelSheet[][];
-    String pixelFile;
     JButton save;
     JButton save1;
+    JButton erase;
     Color colors[] = {Color.WHITE, Color.BLACK, Color.blue, Color.red, Color.green};
     String colorName[] = {"white", "black", "blue", "red", "green"};
     int colorCount;
-    JFileChooser fileChoice;
     JFrame spriteFrame;
+
 
 
     public Sheet(int width) {
@@ -37,6 +37,7 @@ public class Sheet extends JPanel implements ActionListener {
         spriteFrame.setLayout(null);
         save = new JButton("save");
         save1 = new JButton("save as PNG");
+        erase = new JButton("erase");
         spriteFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
@@ -64,7 +65,9 @@ public class Sheet extends JPanel implements ActionListener {
         save1.setBounds(527, 300, 100, 100);
         save1.addActionListener(this::actionPerformed1);
         spriteFrame.add(save1);
-
+        erase.setBounds(527,400,100,100);
+        erase.addActionListener(this::actionPerformed1);
+        spriteFrame.add(erase);
 
     }
 
@@ -74,7 +77,6 @@ public class Sheet extends JPanel implements ActionListener {
         int btnNum = Integer.parseInt(e.getActionCommand());
         int col = btnNum % 16;
         int row = btnNum / 16;
-        System.out.println(col + ", " + row);
         if (e.getSource() == pixelSheet[row][col]) {
             pixelSheet[row][col].incColVal();
             pixelSheet[row][col].setBackground(colors[pixelSheet[row][col].getColVal()]);
@@ -90,6 +92,17 @@ public class Sheet extends JPanel implements ActionListener {
         }
         if (b.getSource() == save1) {
             saveAsPng();
+        } if (b.getSource() == erase) {
+            for (int i = 0; i < pixelSheet.length; i++) {
+                for (int j = 0; j < pixelSheet.length; j++) {
+                    int btnNum = Integer.parseInt(b.getActionCommand());
+                    int col = btnNum % 16;
+                    int row = btnNum / 16;
+                    pixelSheet[row][col].setBackground(Color.WHITE);
+                    pixelSheet[row][col].setForeground(Color.WHITE);
+                    pixelSheet[row][col].setColN(0);
+                }
+            }
         }
     }
 
@@ -101,9 +114,8 @@ public class Sheet extends JPanel implements ActionListener {
         ) {
             for (int i = 0; i < pixelSheet.length; i++) {
                 for (int j = 0; j < pixelSheet.length; j++) {
-                    rf.writeBytes(colorName[pixelSheet[i][j].getColVal()]);
+                    rf.write(pixelSheet[i][j].getColVal());
                     rf.writeBytes(",");
-                    System.out.print(colorName[pixelSheet[i][j].getColVal()] + ",");
                 }
             }
 
