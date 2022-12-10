@@ -110,12 +110,11 @@ public class Sheet extends JPanel implements ActionListener {
     public void saveSheet() {
 
         try (
-                RandomAccessFile rf = new RandomAccessFile("sprite.txt", "rws");
+                PrintWriter pw = new PrintWriter("sprite.txt");
         ) {
             for (int i = 0; i < pixelSheet.length; i++) {
                 for (int j = 0; j < pixelSheet.length; j++) {
-                    rf.write(pixelSheet[i][j].getColVal());
-                    rf.writeBytes(",");
+                    pw.write(pixelSheet[i][j].getColVal());
                 }
             }
 
