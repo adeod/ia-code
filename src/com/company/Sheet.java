@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.io.IOException;
-
+//TODO: add randomiser
 public class Sheet extends JPanel implements ActionListener {
     //width for sheet
     int width;
@@ -18,15 +18,14 @@ public class Sheet extends JPanel implements ActionListener {
     JButton save1;
     JButton erase;
     JButton openEx;
+    JLabel templates;
     Color colors[] = {Color.WHITE, Color.BLACK, Color.blue, Color.MAGENTA, Color.green, Color.orange};
-    //String colorName[] = {"wht","blc","blu","mag","grn", "org"};
     JFrame spriteFrame;
     String tempCol;
-    int pos;
+    String spriteName;
 
     public Sheet(int width) {
         super();
-        pos = 0;
         this.width = width;
         //sheet constructor is initialised as a 2d array with width and length that can be altered
         pixelSheet = new Pixel[16][16];
@@ -38,7 +37,7 @@ public class Sheet extends JPanel implements ActionListener {
         save = new JButton("save");
         save1 = new JButton("save as PNG");
         erase = new JButton("erase");
-        openEx = new JButton("Open Existing...");
+        openEx = new JButton("open existing...");
         save.setBackground(Color.gray);
         save.setForeground(Color.white);
         save1.setBackground(Color.gray);
@@ -47,6 +46,7 @@ public class Sheet extends JPanel implements ActionListener {
         erase.setForeground(Color.white);
         openEx.setForeground(Color.white);
         openEx.setBackground(Color.gray);
+        //templates.setText("choose from some templates");
         spriteFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         spriteFrame.getContentPane().setBackground(Color.lightGray);
 
@@ -97,10 +97,12 @@ public class Sheet extends JPanel implements ActionListener {
 
     public void actionPerformed1(ActionEvent b) {
         if (b.getSource() == save) {
-            saveSheet();
+            spriteName = JOptionPane.showInputDialog(null);
+            saveSheet(spriteName);
         }
         if (b.getSource() == save1) {
-            saveAsPng();
+            spriteName = JOptionPane.showInputDialog(null);
+            saveAsPng(spriteName);
         } if (b.getSource() == erase) {
             for (int i = 0; i < pixelSheet.length; i++) {
                 for (int j = 0; j < pixelSheet.length; j++) {
@@ -110,15 +112,16 @@ public class Sheet extends JPanel implements ActionListener {
                 }
             }
         } if(b.getSource() == openEx){
-            openSheetCoordinates("sprite.txt");
+            spriteName = JOptionPane.showInputDialog(null);
+            openSheetCoordinates(spriteName);
         }
     }
 
 
-    public void saveSheet() {
+    public void saveSheet(String fileName) {
 
         try (
-                PrintWriter pw = new PrintWriter("sprite.txt");
+                PrintWriter pw = new PrintWriter(fileName);
         ) {
             for (int i = 0; i < pixelSheet.length; i++) {
                 for (int j = 0; j < pixelSheet.length; j++) {
@@ -136,13 +139,13 @@ public class Sheet extends JPanel implements ActionListener {
         }
     }
 
-    public void saveAsPng(){
+    public void saveAsPng(String pathName){
         //client wants in a specific area --> develop to other
         try { 
             BufferedImage spriteImage = new BufferedImage(16*width, 17*width,BufferedImage.TYPE_INT_RGB);
             Graphics2D g1 = spriteImage.createGraphics();
             spriteFrame.paint(g1);
-            ImageIO.write(spriteImage,"png", new File("sprite.png"));
+            ImageIO.write(spriteImage,"png", new File(pathName+".png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -152,6 +155,7 @@ public class Sheet extends JPanel implements ActionListener {
         try (
                 RandomAccessFile rf = new RandomAccessFile(fileName, "rws")
         ) {
+            int pos = 0;
             for(int i = 0; i <pixelSheet.length; i++){
                 for(int j=0; j<pixelSheet.length;j++){
                     rf.seek(pos);
