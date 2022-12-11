@@ -160,7 +160,7 @@ public class Sheet extends JPanel implements ActionListener {
                         pixelSheet[i][j].setBackground(colors[newCol]);
                         pixelSheet[i][j].setForeground(colors[newCol]);
                         pixelSheet[i][j].setColN(newCol);
-                        pos++;
+                        pos = pos +2;
                 }
             }
         } catch (IOException e) {
