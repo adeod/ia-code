@@ -12,21 +12,25 @@ public class LaunchPage implements ActionListener {
     JFrame startFrame = new JFrame();
     JButton startButton1 = new JButton("Open New...");
     JButton startButton2 = new JButton("Open Existing Sprite Sheet");
-    JFileChooser fileChooser = new JFileChooser();
     Sheet mySheet;
     FileHandler fH = new FileHandler();
 
     public LaunchPage() {
+        this.mySheet = mySheet;
         startButton1.setBounds(100, 160, 200, 40);
         startButton1.setFocusable(false);
         startButton1.addActionListener(this);
         startButton1.setVisible(true);
+        startButton1.setBackground(Color.gray);
+        startButton1.setForeground(Color.white);
         startFrame.add(startButton1);
 
         startButton2.setBounds(100, 240, 200, 40);
         startButton2.setFocusable(false);
         startButton2.addActionListener(this);
         startButton2.setVisible(true);
+        startButton2.setBackground(Color.gray);
+        startButton2.setForeground(Color.white);
 
         startFrame.add(startButton2);
         startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,12 +46,7 @@ public class LaunchPage implements ActionListener {
             startFrame.dispose();
             mySheet = new Sheet(31);
         } else if (e.getSource() == startButton2) {
-           /* int result = fileChooser.showOpenDialog(null);
-            if(result == JFileChooser.APPROVE_OPTION){
-                File selFile = fileChooser.getSelectedFile();
-                mySheet.openSheetCoordinates(selFile.getName());
-             */
-            mySheet.openSheetCoordinates();
+            mySheet.openSheetCoordinates("sprite.txt");
         }
     }
 }

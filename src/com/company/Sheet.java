@@ -17,13 +17,16 @@ public class Sheet extends JPanel implements ActionListener {
     JButton save;
     JButton save1;
     JButton erase;
+    JButton openEx;
     Color colors[] = {Color.WHITE, Color.BLACK, Color.blue, Color.MAGENTA, Color.green, Color.orange};
-    String colorName[] = {"wht","blc","blu","mag","grn", "org"};
+    //String colorName[] = {"wht","blc","blu","mag","grn", "org"};
     JFrame spriteFrame;
-    int tempCol;
+    String tempCol;
+    int pos;
 
     public Sheet(int width) {
         super();
+        pos = 0;
         this.width = width;
         //sheet constructor is initialised as a 2d array with width and length that can be altered
         pixelSheet = new Pixel[16][16];
@@ -35,6 +38,15 @@ public class Sheet extends JPanel implements ActionListener {
         save = new JButton("save");
         save1 = new JButton("save as PNG");
         erase = new JButton("erase");
+        openEx = new JButton("Open Existing...");
+        save.setBackground(Color.gray);
+        save.setForeground(Color.white);
+        save1.setBackground(Color.gray);
+        save1.setForeground(Color.white);
+        erase.setBackground(Color.gray);
+        erase.setForeground(Color.white);
+        openEx.setForeground(Color.white);
+        openEx.setBackground(Color.gray);
         spriteFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         spriteFrame.getContentPane().setBackground(Color.lightGray);
 
@@ -57,15 +69,18 @@ public class Sheet extends JPanel implements ActionListener {
         }
 
 
-        save.setBounds(527, 200, 150, 100);
+        save.setBounds(527, 200, 150, 80);
         save.addActionListener(this::actionPerformed1);
         spriteFrame.add(save);
-        save1.setBounds(527, 300, 150, 100);
+        save1.setBounds(527, 300, 150, 80);
         save1.addActionListener(this::actionPerformed1);
         spriteFrame.add(save1);
-        erase.setBounds(527,400,150,100);
+        erase.setBounds(527,400,150,80);
         erase.addActionListener(this::actionPerformed1);
         spriteFrame.add(erase);
+        openEx.setBounds(527,100,150,80);
+        openEx.addActionListener(this::actionPerformed1);
+        spriteFrame.add(openEx);
 
     }
 
@@ -94,6 +109,8 @@ public class Sheet extends JPanel implements ActionListener {
                     pixelSheet[i][j].setColN(0);
                 }
             }
+        } if(b.getSource() == openEx){
+            openSheetCoordinates("sprite.txt");
         }
     }
 
@@ -105,7 +122,8 @@ public class Sheet extends JPanel implements ActionListener {
         ) {
             for (int i = 0; i < pixelSheet.length; i++) {
                 for (int j = 0; j < pixelSheet.length; j++) {
-                   pw.write(pixelSheet[i][j].colN);
+                   String tempColl = Integer.toString(pixelSheet[i][j].getColVal());
+                   pw.write(tempColl);
                    pw.write("\n");
                 }
             }
@@ -130,17 +148,18 @@ public class Sheet extends JPanel implements ActionListener {
         }
     }
 
-    public void openSheetCoordinates() {
+    public void openSheetCoordinates(String fileName) {
         try (
-                RandomAccessFile rf = new RandomAccessFile("sprite.txt", "rws")
+                RandomAccessFile rf = new RandomAccessFile(fileName, "rws")
         ) {
-            int pos = 0;
             for(int i = 0; i <pixelSheet.length; i++){
                 for(int j=0; j<pixelSheet.length;j++){
                     rf.seek(pos);
-                        tempCol = rf.readInt();
-                        pixelSheet[i][j].setBackground(colors[tempCol]);
-                        pixelSheet[i][j].setForeground(colors[tempCol]);
+                        tempCol = rf.readLine();
+                        int newCol = Integer.parseInt(tempCol);
+                        pixelSheet[i][j].setBackground(colors[newCol]);
+                        pixelSheet[i][j].setForeground(colors[newCol]);
+                        pixelSheet[i][j].setColN(newCol);
                         pos++;
                 }
             }
