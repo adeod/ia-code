@@ -11,10 +11,10 @@ public class LaunchPage implements ActionListener {
 
     JFrame startFrame = new JFrame();
     JButton startButton1 = new JButton("Open New...");
-    JButton startButton2 = new JButton("Open Existing Sprite Sheet");
     Sheet mySheet;
     FileHandler fH = new FileHandler();
     JButton tem1, tem2, tem3;
+    JLabel templates;
     public LaunchPage() {
         startButton1.setBounds(100, 160, 200, 40);
         startButton1.setFocusable(false);
@@ -51,15 +51,12 @@ public class LaunchPage implements ActionListener {
         tem3.setForeground(Color.white);
         startFrame.add(tem3);
 
-        /*
-        startButton2.setBounds(200, 240, 200, 40);
-        startButton2.setFocusable(false);
-        startButton2.addActionListener(this);
-        startButton2.setVisible(true);
-        startButton2.setBackground(Color.gray);
-        startButton2.setForeground(Color.white);
-        startFrame.add(startButton2);
-        */
+        templates = new JLabel("... or choose a template");
+        templates.setBounds(230,170,190,100);
+        templates.setForeground(Color.DARK_GRAY);
+        templates.setVisible(true);
+        startFrame.add(templates);
+
         startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         startFrame.setSize(420, 420);
         startFrame.setLayout(null);

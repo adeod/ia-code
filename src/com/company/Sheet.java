@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.io.IOException;
+import java.util.Random;
+
 //TODO: add randomiser
 public class Sheet extends JPanel implements ActionListener {
     //width for sheet
@@ -18,14 +20,17 @@ public class Sheet extends JPanel implements ActionListener {
     JButton save1;
     JButton erase;
     JButton openEx;
-    JLabel templates;
+    JButton randomiser;
     Color colors[] = {Color.WHITE, Color.BLACK, Color.blue, Color.MAGENTA, Color.green, Color.orange};
     JFrame spriteFrame;
     String tempCol;
     String spriteName;
+    Random randCol;
+
 
     public Sheet(int width) {
         super();
+        randCol = new Random();
         this.width = width;
         //sheet constructor is initialised as a 2d array with width and length that can be altered
         pixelSheet = new Pixel[16][16];
@@ -38,6 +43,7 @@ public class Sheet extends JPanel implements ActionListener {
         save1 = new JButton("save as PNG");
         erase = new JButton("erase");
         openEx = new JButton("open existing...");
+        randomiser = new JButton("randomise");
         save.setBackground(Color.gray);
         save.setForeground(Color.white);
         save1.setBackground(Color.gray);
@@ -46,7 +52,8 @@ public class Sheet extends JPanel implements ActionListener {
         erase.setForeground(Color.white);
         openEx.setForeground(Color.white);
         openEx.setBackground(Color.gray);
-        //templates.setText("choose from some templates");
+        randomiser.setForeground(Color.white);
+        randomiser.setBackground(Color.gray);
         spriteFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         spriteFrame.getContentPane().setBackground(Color.lightGray);
 
@@ -68,7 +75,9 @@ public class Sheet extends JPanel implements ActionListener {
             }
         }
 
-
+        randomiser.setBounds(527, 100, 150, 80);
+        randomiser.addActionListener(this::actionPerformed1);
+        spriteFrame.add(randomiser);
         save.setBounds(527, 200, 150, 80);
         save.addActionListener(this::actionPerformed1);
         spriteFrame.add(save);
@@ -114,6 +123,14 @@ public class Sheet extends JPanel implements ActionListener {
         } if(b.getSource() == openEx){
             spriteName = JOptionPane.showInputDialog(null);
             openSheetCoordinates(spriteName);
+        } if(b.getSource() == randomiser){
+            for (int i=0; i< pixelSheet.length; i++){
+                for(int j=0; j< pixelSheet.length; j++){
+                    Color randomcolour = generateRandCol();
+                    pixelSheet[i][j].setForeground(randomcolour);
+                    pixelSheet[i][j].setBackground(randomcolour);
+                }
+            }
         }
     }
 
@@ -170,5 +187,16 @@ public class Sheet extends JPanel implements ActionListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public Color generateRandCol(){
+        int random = 0;
+        while(true){
+            random = randCol.nextInt(6);
+            if(random != 0){
+                break;
+            }
+        }
+        return colors[random];
     }
 }
