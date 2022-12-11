@@ -22,7 +22,7 @@ import java.awt.event.ActionListener;
         public int incColVal(){
             colN = colN+1;
 
-            if(colN >= 5){
+            if(colN >= 6){
                 colN = 0;
             }
             return colN;

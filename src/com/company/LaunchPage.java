@@ -1,6 +1,7 @@
 package com.company;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -32,7 +33,7 @@ public class LaunchPage implements ActionListener {
         startFrame.setSize(420, 420);
         startFrame.setLayout(null);
         startFrame.setVisible(true);
-
+        startFrame.getContentPane().setBackground(Color.lightGray);
     }
 
     @Override
@@ -41,11 +42,12 @@ public class LaunchPage implements ActionListener {
             startFrame.dispose();
             mySheet = new Sheet(31);
         } else if (e.getSource() == startButton2) {
-            int result = fileChooser.showOpenDialog(null);
+           /* int result = fileChooser.showOpenDialog(null);
             if(result == JFileChooser.APPROVE_OPTION){
                 File selFile = fileChooser.getSelectedFile();
                 mySheet.openSheetCoordinates(selFile.getName());
-            }
+             */
+            mySheet.openSheetCoordinates();
         }
     }
 }

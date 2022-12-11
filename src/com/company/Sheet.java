@@ -17,28 +17,26 @@ public class Sheet extends JPanel implements ActionListener {
     JButton save;
     JButton save1;
     JButton erase;
-    Color colors[] = {Color.WHITE, Color.BLACK, Color.blue, Color.red, Color.green};
-    String colorName[] = {"white", "black", "blue", "red", "green"};
-    int colorCount;
+    Color colors[] = {Color.WHITE, Color.BLACK, Color.blue, Color.MAGENTA, Color.green, Color.orange};
+    String colorName[] = {"wht","blc","blu","mag","grn", "org"};
     JFrame spriteFrame;
-
-
+    int tempCol;
 
     public Sheet(int width) {
         super();
-        colorCount = 0;
         this.width = width;
         //sheet constructor is initialised as a 2d array with width and length that can be altered
         pixelSheet = new Pixel[16][16];
         //creating JFrame
         spriteFrame = new JFrame("Sprite Sheet");
         //add sheet object to GUI
-        spriteFrame.setSize(578, 578);
+        spriteFrame.setSize(800, 578);
         spriteFrame.setLayout(null);
         save = new JButton("save");
         save1 = new JButton("save as PNG");
         erase = new JButton("erase");
         spriteFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        spriteFrame.getContentPane().setBackground(Color.lightGray);
 
 
         //make frame visible by setting to true
@@ -59,13 +57,13 @@ public class Sheet extends JPanel implements ActionListener {
         }
 
 
-        save.setBounds(527, 200, 100, 100);
+        save.setBounds(527, 200, 150, 100);
         save.addActionListener(this::actionPerformed1);
         spriteFrame.add(save);
-        save1.setBounds(527, 300, 100, 100);
+        save1.setBounds(527, 300, 150, 100);
         save1.addActionListener(this::actionPerformed1);
         spriteFrame.add(save1);
-        erase.setBounds(527,400,100,100);
+        erase.setBounds(527,400,150,100);
         erase.addActionListener(this::actionPerformed1);
         spriteFrame.add(erase);
 
@@ -77,13 +75,9 @@ public class Sheet extends JPanel implements ActionListener {
         int btnNum = Integer.parseInt(e.getActionCommand());
         int col = btnNum % 16;
         int row = btnNum / 16;
-        if (e.getSource() == pixelSheet[row][col]) {
             pixelSheet[row][col].incColVal();
             pixelSheet[row][col].setBackground(colors[pixelSheet[row][col].getColVal()]);
             pixelSheet[row][col].setForeground(colors[pixelSheet[row][col].getColVal()]);
-        } else {
-            System.out.print("not");
-        }
     }
 
     public void actionPerformed1(ActionEvent b) {
@@ -95,12 +89,9 @@ public class Sheet extends JPanel implements ActionListener {
         } if (b.getSource() == erase) {
             for (int i = 0; i < pixelSheet.length; i++) {
                 for (int j = 0; j < pixelSheet.length; j++) {
-                    int btnNum = Integer.parseInt(b.getActionCommand());
-                    int col = btnNum % 16;
-                    int row = btnNum / 16;
-                    pixelSheet[row][col].setBackground(Color.WHITE);
-                    pixelSheet[row][col].setForeground(Color.WHITE);
-                    pixelSheet[row][col].setColN(0);
+                    pixelSheet[i][j].setBackground(Color.WHITE);
+                    pixelSheet[i][j].setForeground(Color.WHITE);
+                    pixelSheet[i][j].setColN(0);
                 }
             }
         }
@@ -114,9 +105,11 @@ public class Sheet extends JPanel implements ActionListener {
         ) {
             for (int i = 0; i < pixelSheet.length; i++) {
                 for (int j = 0; j < pixelSheet.length; j++) {
-                    pw.write(pixelSheet[i][j].getColVal());
+                   pw.write(pixelSheet[i][j].colN);
+                   pw.write("\n");
                 }
             }
+
 
         } catch (IOException b) {
             JWindow suggestBox = new JWindow();
@@ -137,16 +130,19 @@ public class Sheet extends JPanel implements ActionListener {
         }
     }
 
-    public void openSheetCoordinates(String filename) {
+    public void openSheetCoordinates() {
         try (
-                RandomAccessFile rf = new RandomAccessFile(filename, "rws")
+                RandomAccessFile rf = new RandomAccessFile("sprite.txt", "rws")
         ) {
-            for(int i = 0; i < 16; i++){
-                if(i==0){
-
+            int pos = 0;
+            for(int i = 0; i <pixelSheet.length; i++){
+                for(int j=0; j<pixelSheet.length;j++){
+                    rf.seek(pos);
+                        tempCol = rf.readInt();
+                        pixelSheet[i][j].setBackground(colors[tempCol]);
+                        pixelSheet[i][j].setForeground(colors[tempCol]);
+                        pos++;
                 }
-                rf.seek(i);
-
             }
         } catch (IOException e) {
             e.printStackTrace();
