@@ -20,13 +20,13 @@ public class Sheet extends JPanel implements ActionListener {
     JButton save1;
     JButton erase;
     JButton openEx;
-    JButton randomiser;
+    JButton randomiser, backBtn;
     Color colors[] = {Color.WHITE, Color.BLACK, Color.blue, Color.MAGENTA, Color.green, Color.orange};
     JFrame spriteFrame;
     String tempCol;
     String spriteName;
     Random randCol;
-
+    LaunchPage launchBack;
 
     public Sheet(int width) {
         super();
@@ -44,6 +44,9 @@ public class Sheet extends JPanel implements ActionListener {
         erase = new JButton("erase");
         openEx = new JButton("open existing...");
         randomiser = new JButton("randomise");
+        backBtn = new JButton("<--");
+        backBtn.setBackground(Color.gray);
+        backBtn.setForeground(Color.white);
         save.setBackground(Color.gray);
         save.setForeground(Color.white);
         save1.setBackground(Color.gray);
@@ -90,6 +93,9 @@ public class Sheet extends JPanel implements ActionListener {
         openEx.setBounds(527,100,150,80);
         openEx.addActionListener(this::actionPerformed1);
         spriteFrame.add(openEx);
+        backBtn.setBounds(527,50,150,30);
+        backBtn.addActionListener(this::actionPerformed1);
+        spriteFrame.add(backBtn);
 
     }
 
@@ -131,6 +137,9 @@ public class Sheet extends JPanel implements ActionListener {
                     pixelSheet[i][j].setBackground(randomcolour);
                 }
             }
+        } if(b.getSource() == backBtn){
+            spriteFrame.dispose();
+            launchBack = new LaunchPage();
         }
     }
 
