@@ -199,10 +199,10 @@ public class Sheet extends JPanel implements ActionListener {
     }
 
     public Color generateRandCol(){
-        int random = 0;
+        int random = -1;
         while(true){
             random = randCol.nextInt(6);
-            if(random != 0){
+            if(random != -1){
                 break;
             }
         }
