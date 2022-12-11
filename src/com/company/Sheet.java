@@ -78,7 +78,7 @@ public class Sheet extends JPanel implements ActionListener {
             }
         }
 
-        randomiser.setBounds(527, 100, 150, 80);
+        randomiser.setBounds(527, 100, 150, 40);
         randomiser.addActionListener(this::actionPerformed1);
         spriteFrame.add(randomiser);
         save.setBounds(527, 200, 150, 80);
@@ -90,7 +90,7 @@ public class Sheet extends JPanel implements ActionListener {
         erase.setBounds(527,400,150,80);
         erase.addActionListener(this::actionPerformed1);
         spriteFrame.add(erase);
-        openEx.setBounds(527,100,150,80);
+        openEx.setBounds(527,140,150,40);
         openEx.addActionListener(this::actionPerformed1);
         spriteFrame.add(openEx);
         backBtn.setBounds(527,50,150,30);
